@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="SubmitButtonStyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:elevation" tools:targetApi="lollipop">4dp</item>
+    </style>
+    <style name="ClickableLabelStyle">
+        <item name="android:textSize">@dimen/medium_text_size</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/default_padding</item>
+        <item name="android:background">@drawable/clickable_text_background</item>
+    </style>
+</resources>

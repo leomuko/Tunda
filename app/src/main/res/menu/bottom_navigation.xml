@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottomNav_home_page"
+        android:icon="@drawable/ic_home_icon"
+        android:title="Home" />
+    <item android:id="@+id/bottomNav_Stores"
+        android:icon="@drawable/ic_store_icon"
+        android:title="Stores"/>
+
+
+</menu>

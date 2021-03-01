@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Tunda</string>
+    <string name="hint_email_input">Email</string>
+    <string name="hint_password_input">Password</string>
+    <string name="label_login_activity">Login</string>
+    <string name="description_email_icon">Email</string>
+    <string name="description_password_icon">Password</string>
+    <string name="label_reset_password">Reset Password</string>
+    <string name="button_text_login">Login</string>
+    <string name="hintUserNameInput">UserName</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="button_create_account_text">Create Account</string>
+    <string name="text_app_settings">Application Settings</string>
+    <string name="text_edit_profile">Edit Profile</string>
+    <string name="text_help_n_feedback"><![CDATA[Help & Feedback]]></string>
+    <string name="text_share_app">Share App</string>
+    <string name="text_logout">Logout</string>
+    <string name="item_name_text">Farming Item Name</string>
+    <string name="user_email_com">user@email.com</string>
+    <string name="item_default_price_text">UGX 15,000,000</string>
+    <string name="lorem">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s
+        standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</string>
+    <string name="call_user_texte">CALL SELLER</string>
+</resources>

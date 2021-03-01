@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="@string/text_app_settings">
+        <menu>
+            <item android:id="@+id/nav_edit_profile"
+                android:title="@string/text_edit_profile"
+                android:icon="@drawable/ic_edit_profile_icon"/>
+            <item android:id="@+id/nav_help"
+                android:title="@string/text_help_n_feedback"
+                android:icon="@drawable/ic_help_icon"/>
+            <item android:id="@+id/nav_share"
+                android:title="@string/text_share_app"
+                android:icon="@drawable/ic_share_icon"/>
+            <item android:id="@+id/nav_logout"
+                android:title="@string/text_logout"
+                android:icon="@drawable/ic_logout"/>
+        </menu>
+    </item>
+
+</menu>
