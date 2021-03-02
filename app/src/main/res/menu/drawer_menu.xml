@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
+
     <item android:title="@string/text_app_settings">
         <menu>
             <item android:id="@+id/nav_edit_profile"
