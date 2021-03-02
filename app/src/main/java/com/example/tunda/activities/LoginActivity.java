@@ -87,12 +87,12 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
+                                progressBar.endLoading();
                                 Toast.makeText(LoginActivity.this, "User Logged in", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);
-                                progressBar.endLoading();
                             }else{
-                                Toast.makeText(LoginActivity.this, "User Log in failed "+
+                                Toast.makeText(LoginActivity.this, "User Login failed "+
                                         Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                                 progressBar.endLoading();
                             }

@@ -10,12 +10,11 @@ public class UserModel implements Parcelable {
     public UserModel() {
     }
 
-    public UserModel(String userID, String email, String name, String phone, String profilePic) {
+    public UserModel(String userID, String email, String name, String phone) {
         this.userID = userID;
         this.email = email;
         this.name = name;
         this.phone = phone;
-        this.profilePic = profilePic;
     }
 
     protected UserModel(Parcel in) {
