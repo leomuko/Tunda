@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1054246659799",
+    "project_id": "tunda-dfdad",
+    "storage_bucket": "tunda-dfdad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1054246659799:android:38d8455f951242286d7292",
+        "android_client_info": {
+          "package_name": "com.example.tunda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1054246659799-l59id9269emc0fc003l0ug92n4gt75e7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tunda",
+            "certificate_hash": "8d9a8de63d1fdc00a8772acbeb4dc98894cf5b9e"
+          }
+        },
+        {
+          "client_id": "1054246659799-hd0md0uk3rm46n5kat9h2a8fvti9e9bk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtjRJOLBszr4_RQTUy8pgHpRilXOKVDRE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1054246659799-hd0md0uk3rm46n5kat9h2a8fvti9e9bk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
