@@ -128,7 +128,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void saveUserToDb(UserModel userModel) {
-        DatabaseReference dbRef = mFirebaseDatabase.getReference(Constants.Users)
+        DatabaseReference dbRef = mFirebaseDatabase.getReference(Constants.Users_table)
                 .child(userModel.getUserID());
 
         dbRef.setValue(userModel).addOnCompleteListener(userCreationTask ->{

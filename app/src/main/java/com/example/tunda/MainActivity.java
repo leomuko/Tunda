@@ -14,16 +14,23 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.tunda.fragments.EditProfileFragment;
 import com.example.tunda.fragments.HelpAndFeedbackFragment;
 import com.example.tunda.fragments.HomeFragment;
 import com.example.tunda.fragments.SellerFragment;
 import com.example.tunda.helpers.drawerToggleHelper;
+import com.example.tunda.models.UserModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -35,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Fragment mNavFragmentSelected = null;
     private BottomNavigationView mBottomNav;
     private ActionBarDrawerToggle mToggle;
+    private MainActivityViewModel mMainActivityViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +69,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
 
+        initViewModel();
 
+    }
+
+    private void initViewModel() {
+        mMainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        mMainActivityViewModel.getUserData();
+        mMainActivityViewModel.userLiveData.observe(this, new Observer<UserModel>() {
+            @Override
+            public void onChanged(UserModel userModel) {
+                populateNavHeader(userModel);
+            }
+        });
+
+    }
+
+    private void populateNavHeader(UserModel userModel) {
+        ImageView userProfile = mHeaderLayout.findViewById(R.id.header_profile_image);
+        TextView userName = mHeaderLayout.findViewById(R.id.header_userName);
+        TextView userEmail = mHeaderLayout.findViewById(R.id.header_userEmail);
+
+        userName.setText(userModel.getName());
+        userEmail.setText(userModel.getEmail());
+
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(R.drawable.ic_account);
+        requestOptions.error(R.drawable.ic_account);
+        Glide.with(this)
+                .setDefaultRequestOptions(requestOptions)
+                .load(userProfile).into(userProfile);
 
     }
 
@@ -70,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     Fragment selectedFragment = null;
-                    switch (item.getItemId()){
+                    switch (item.getItemId()) {
                         case R.id.bottomNav_home_page:
                             selectedFragment = new HomeFragment();
                             break;
@@ -86,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_edit_profile:
                 mNavFragmentSelected = new EditProfileFragment();
                 mBottomNav.setVisibility(View.GONE);
@@ -103,7 +140,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(this, "Share App", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_logout:
-                //do something
+                mMainActivityViewModel.logOut();
+                Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+                finish();
+                startActivity(getIntent());
                 break;
 
         }
@@ -114,9 +154,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        if(mDrawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
-        }else if(mNavFragmentSelected != null){
+        } else if (mNavFragmentSelected != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 finishAffinity();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -126,17 +166,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
-        }else if(backPressedTime + 2000 > System.currentTimeMillis()){
+        } else if (backPressedTime + 2000 > System.currentTimeMillis()) {
             super.onBackPressed();
             return;
-        }else {
+        } else {
             Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
         }
         backPressedTime = System.currentTimeMillis();
     }
 
     @SuppressLint("WrongConstant")
-    public  void setDrawerState(boolean isEnabled) {
+    public void setDrawerState(boolean isEnabled) {
         if (isEnabled) {
             mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
             mToggle.onDrawerStateChanged(DrawerLayout.LOCK_MODE_UNLOCKED);
