@@ -30,4 +30,11 @@
     <string name="have_account_text">Already Have An Account?</string>
     <string name="hint_phone_input">Phone Number (07***)</string>
     <string name="empty_email_and_password_error_text">Please ensure that email and password fields are not empty</string>
+    <string name="enter_product_name">Enter Product Name</string>
+    <string name="product_details_txt">Product Details</string>
+    <string name="product_price_txt">Enter Product Price (Must be in ugx)</string>
+    <string name="upload_string">Upload</string>
+    <string name="product_cover_image">Add Product Cover Image</string>
+    <string name="tap_here">Tap here</string>
+    <string name="tap_image_to_product_images">Tap Image to Product Images</string>
 </resources>

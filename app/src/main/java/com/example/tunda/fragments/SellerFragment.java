@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.example.tunda.R;
 import com.example.tunda.activities.LoginActivity;
+import com.example.tunda.activities.NewProductActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -20,6 +22,7 @@ public class SellerFragment extends Fragment {
 
     private FirebaseAuth firebaseAuth;
     private Button mSignInButton;
+    private FloatingActionButton fab;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,11 +33,22 @@ public class SellerFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         mSignInButton = rootView.findViewById(R.id.signInButton);
+        fab = rootView.findViewById(R.id.fab);
 
         if(firebaseUser == null){
             Toast.makeText(getContext(), "To Become a seller, You must login", Toast.LENGTH_LONG).show();
             mSignInButton.setVisibility(View.VISIBLE);
+        }else{
+            fab.setVisibility(View.VISIBLE);
         }
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), NewProductActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         mSignInButton.setOnClickListener(new View.OnClickListener() {

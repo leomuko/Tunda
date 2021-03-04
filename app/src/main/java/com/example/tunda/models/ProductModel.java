@@ -3,6 +3,9 @@ package com.example.tunda.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductModel implements Parcelable {
 
     private String productID, sellerID, pdtName, pdtPrice,  pdtDescription, coverPic;
@@ -10,15 +13,13 @@ public class ProductModel implements Parcelable {
     public ProductModel() {
     }
 
-    public ProductModel(String productID, String sellerID, String pdtName, String pdtPrice, String pdtDescription, String coverPic) {
+    public ProductModel(String productID, String sellerID, String pdtName, String pdtPrice, String pdtDescription) {
         this.productID = productID;
         this.sellerID = sellerID;
         this.pdtName = pdtName;
         this.pdtPrice = pdtPrice;
         this.pdtDescription = pdtDescription;
-        this.coverPic = coverPic;
     }
-
     protected ProductModel(Parcel in) {
         productID = in.readString();
         sellerID = in.readString();
