@@ -101,6 +101,7 @@ public class NewProductActivity extends AppCompatActivity implements ProductImag
 
         coverPicImageView = findViewById(R.id.pdtCoverImageView);
         mAddOtherImages = findViewById(R.id.addImagesView);
+        mAddOtherImages.setVisibility(View.GONE);
         mAddOtherImages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,8 +134,6 @@ public class NewProductActivity extends AppCompatActivity implements ProductImag
             Toast.makeText(this, "Product Price cannot be null", Toast.LENGTH_SHORT).show();
         }else if(coverBitmap == null){
             Toast.makeText(this, "Please Add Cover Pic", Toast.LENGTH_SHORT).show();
-        }else if(bitmaps.size() < 2){
-            Toast.makeText(this, "Atleast 2 other product images must be added", Toast.LENGTH_SHORT).show();
         }else{
             progressBar.startLoading(this);
            /* DatabaseReference dbRef = mFirebaseDatabase.getReference(Constants.Products_table);

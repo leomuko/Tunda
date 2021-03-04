@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.tunda.models.ProductModel;
 import com.example.tunda.models.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -13,6 +14,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FirebaseRepo {
     private static final String TAG = "FIREBASE";
@@ -45,5 +49,28 @@ public class FirebaseRepo {
 
     public void logUserOut() {
         firebaseAuth.signOut();
+    }
+
+    public MutableLiveData<List<ProductModel>> loadingAllProducts(){
+        List<ProductModel> allProducstList = new ArrayList<>();
+        MutableLiveData<List<ProductModel>> mutableLiveData = new MutableLiveData<>();
+        DatabaseReference allProductsDbref = mFirebaseDatabase.getReference(Constants.Products_table);
+
+        allProductsDbref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot s: snapshot.getChildren()){
+                    allProducstList.add(s.getValue(ProductModel.class));
+                }
+                mutableLiveData.postValue(allProducstList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        return mutableLiveData;
     }
 }

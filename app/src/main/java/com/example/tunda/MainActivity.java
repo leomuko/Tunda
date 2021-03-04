@@ -23,16 +23,15 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.tunda.fragments.EditProfileFragment;
 import com.example.tunda.fragments.HelpAndFeedbackFragment;
-import com.example.tunda.fragments.HomeFragment;
-import com.example.tunda.fragments.SellerFragment;
+import com.example.tunda.fragments.Home.HomeFragment;
+import com.example.tunda.fragments.Seller.SellerFragment;
 import com.example.tunda.helpers.drawerToggleHelper;
 import com.example.tunda.models.UserModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, drawerToggleHelper {
 
@@ -93,12 +92,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         userName.setText(userModel.getName());
         userEmail.setText(userModel.getEmail());
 
-        RequestOptions requestOptions = new RequestOptions();
+       /* RequestOptions requestOptions = new RequestOptions();
         requestOptions.placeholder(R.drawable.ic_account);
         requestOptions.error(R.drawable.ic_account);
         Glide.with(this)
                 .setDefaultRequestOptions(requestOptions)
-                .load(userProfile).into(userProfile);
+                .load(userModel.getProfilePic()).into(userProfile);*/
+        Picasso.get().load(userModel.getProfilePic()).placeholder(R.drawable.ic_account).into(userProfile);
 
     }
 
