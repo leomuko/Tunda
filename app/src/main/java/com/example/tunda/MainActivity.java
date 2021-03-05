@@ -24,7 +24,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 
 import com.example.tunda.fragments.EditProfile.EditProfileFragment;
-import com.example.tunda.fragments.HelpAndFeedbackFragment;
+import com.example.tunda.fragments.helpAndFeedback.HelpAndFeedbackFragment;
 import com.example.tunda.fragments.Home.HomeFragment;
 import com.example.tunda.fragments.Seller.SellerFragment;
 import com.example.tunda.helpers.drawerToggleHelper;
