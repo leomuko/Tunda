@@ -23,7 +23,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 
-import com.example.tunda.fragments.EditProfileFragment;
+import com.example.tunda.fragments.EditProfile.EditProfileFragment;
 import com.example.tunda.fragments.HelpAndFeedbackFragment;
 import com.example.tunda.fragments.Home.HomeFragment;
 import com.example.tunda.fragments.Seller.SellerFragment;

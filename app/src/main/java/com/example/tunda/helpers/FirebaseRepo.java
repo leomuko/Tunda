@@ -73,4 +73,15 @@ public class FirebaseRepo {
 
         return mutableLiveData;
     }
+
+    public void editUserDetails(String name, String phone, UserModel user) {
+
+
+        user.setName(name);
+        user.setPhone(phone);
+        DatabaseReference dbRef = mFirebaseDatabase
+                .getReference(Constants.Users_table).child(user.getUserID());
+        dbRef.setValue(user);
+
+    }
 }
