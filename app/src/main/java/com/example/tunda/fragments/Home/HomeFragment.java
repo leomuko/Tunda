@@ -1,7 +1,9 @@
 package com.example.tunda.fragments.Home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
@@ -12,13 +14,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.tunda.R;
+import com.example.tunda.activities.DetailsActivity;
 import com.example.tunda.helpers.Loading;
 import com.example.tunda.helpers.homeItem;
 import com.example.tunda.models.ProductModel;
 import com.xwray.groupie.GroupAdapter;
+import com.xwray.groupie.Item;
+import com.xwray.groupie.OnItemClickListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,7 +36,8 @@ public class HomeFragment extends Fragment {
     private HomeFragmentViewModel mHomeFragmentViewModel;
     private FragmentActivity mC;
     private RecyclerView mHomeRecyclerView;
-    final Loading progressBar = new Loading();
+    private ProgressBar mProgressBar;
+    private List<ProductModel> allProductsList = new ArrayList<>();
 
 
     @Override
@@ -40,7 +49,7 @@ public class HomeFragment extends Fragment {
         initHomeViewModel();
         mHomeRecyclerView = rootView.findViewById(R.id.home_recycler_view);
         mC = getActivity();
-        progressBar.startLoading(mC);
+        mProgressBar = rootView.findViewById(R.id.progressBar);
 
 
 
@@ -49,6 +58,14 @@ public class HomeFragment extends Fragment {
         mAdapter = new GroupAdapter();
         mHomeRecyclerView.setAdapter(mAdapter);
         fecthingProducts();
+        mAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull Item item, @NonNull View view) {
+                Intent intent = new Intent(mC, DetailsActivity.class);
+                intent.putExtra("product",allProductsList.get(mAdapter.getAdapterPosition(item)) );
+                startActivity(intent);
+            }
+        });
         return rootView;
     }
 
@@ -58,12 +75,14 @@ public class HomeFragment extends Fragment {
         mHomeFragmentViewModel.mProductLiveData.observe(getViewLifecycleOwner(), new Observer<List<ProductModel>>() {
             @Override
             public void onChanged(List<ProductModel> productModels) {
+                allProductsList.clear();
+                allProductsList.addAll(productModels);
 
                 for(ProductModel p : productModels){
                     mAdapter.add(new homeItem(p, mC));
                     mAdapter.notifyDataSetChanged();
                 }
-                progressBar.endLoading();
+               mProgressBar.setVisibility(View.GONE);
             }
         });
     }

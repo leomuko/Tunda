@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
 
-        <com.smarteist.autoimageslider.SliderView
+        <!--<com.smarteist.autoimageslider.SliderView
             android:id="@+id/imageSlider"
             android:layout_width="match_parent"
             android:layout_height="300dp"
@@ -30,14 +30,26 @@
             app:sliderIndicatorSelectedColor="#5A5A5A"
             app:sliderIndicatorUnselectedColor="#FFF"
             app:sliderScrollTimeInSec="1"
-            app:sliderStartAutoCycle="true" />
+            app:sliderStartAutoCycle="true" />-->
+        <ImageView
+            android:id="@+id/imageSlider"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <View
+        <TextView
             android:id="@+id/view5"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="1dp"
-            android:background="#C4C4C4"
+            android:text="Price"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageSlider" />
@@ -47,13 +59,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
             android:text="@string/item_default_price_text"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view5" />
+
+        <TextView
+            android:id="@+id/view62"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="1dp"
+            android:text="Product Details"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productPage_price" />
 
         <TextView
             android:id="@+id/productPage_details"
@@ -66,49 +92,74 @@
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/productPage_price" />
+            app:layout_constraintTop_toBottomOf="@+id/view62" />
 
 
-        <View
+        <TextView
             android:id="@+id/view6"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
-            android:background="#C4C4C4"
+            android:text="Seller Information"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:layout_margin="5dp"
+            android:layout_marginBottom="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/productPage_details" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/seller_profile_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="32dp"
-            android:src="@drawable/ic_account_1"
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view6" />
+            app:layout_constraintTop_toBottomOf="@+id/view6"
+            android:layout_marginTop="12dp"
+            app:cardCornerRadius="5dp"
+            android:layout_margin="5dp">
 
-        <TextView
-            android:id="@+id/detail_userName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hintUserNameInput"
-            app:layout_constraintBottom_toTopOf="@+id/detail_userPhoneNumber"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/seller_profile_image"
-            app:layout_constraintTop_toTopOf="@+id/seller_profile_image" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp">
 
-        <Button
-            android:id="@+id/detail_userPhoneNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/call_user_texte"
-            app:layout_constraintBottom_toBottomOf="@+id/seller_profile_image"
-            app:layout_constraintEnd_toEndOf="@+id/detail_userName"
-            app:layout_constraintStart_toStartOf="@+id/detail_userName"
-            app:layout_constraintTop_toBottomOf="@+id/detail_userName" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/seller_profile_image"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/ic_account_1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"  />
+
+                <TextView
+                    android:id="@+id/detail_userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="@string/hintUserNameInput"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toTopOf="@+id/detail_userPhoneNumber"
+                    app:layout_constraintStart_toEndOf="@+id/seller_profile_image"
+                    app:layout_constraintTop_toTopOf="@+id/seller_profile_image" />
+
+                <Button
+                    android:id="@+id/detail_userPhoneNumber"
+                    style="@style/SubmitButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="@string/call_user_texte"
+                    app:layout_constraintBottom_toBottomOf="@+id/seller_profile_image"
+                    app:layout_constraintStart_toEndOf="@+id/seller_profile_image"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_userName" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

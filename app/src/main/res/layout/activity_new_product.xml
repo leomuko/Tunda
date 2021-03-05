@@ -116,6 +116,7 @@
                     android:visibility="gone"/>
 
                 <TextView
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/tap_image_to_product_images"

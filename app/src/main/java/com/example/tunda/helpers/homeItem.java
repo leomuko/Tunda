@@ -32,7 +32,10 @@ public class homeItem extends com.xwray.groupie.Item {
         itemName.setText(mProductModel.getPdtName());
         itemPrice.setText("UGX " + mProductModel.getPdtPrice());
 
-        Picasso.get().load(mProductModel.getCoverPic()).into(itemImage);
+        Picasso.get().load(mProductModel.getCoverPic())
+                .fit()
+                .centerCrop()
+                .into(itemImage);
     }
 
     @Override
