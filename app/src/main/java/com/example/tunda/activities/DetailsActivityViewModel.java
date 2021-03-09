@@ -17,7 +17,7 @@ public class DetailsActivityViewModel extends AndroidViewModel {
         mFirebaseRepo = new FirebaseRepo();
     }
 
-    public void getUserData(){
-        userLiveData = mFirebaseRepo.getUserData();
+    public void getUserData(String uid){
+        userLiveData = mFirebaseRepo.getSellerData(uid);
     }
 }

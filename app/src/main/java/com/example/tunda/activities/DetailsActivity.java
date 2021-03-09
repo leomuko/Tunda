@@ -45,7 +45,7 @@ public class DetailsActivity extends AppCompatActivity {
 
     private void initialiseViewModel() {
         DetailsActivityViewModel detailsActivityViewModel = new ViewModelProvider(this).get(DetailsActivityViewModel.class);
-        detailsActivityViewModel.getUserData();
+        detailsActivityViewModel.getUserData(mCurrentProduct.getSellerID());
         detailsActivityViewModel.userLiveData.observe(this, new Observer<UserModel>() {
             @Override
             public void onChanged(UserModel userModel) {

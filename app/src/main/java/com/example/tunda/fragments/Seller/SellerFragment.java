@@ -101,7 +101,10 @@ public class SellerFragment extends Fragment {
 
 
         mSellerViewModel = new ViewModelProvider(this).get(SellerViewModel.class);
-        fecthingProducts();
+        if(mFirebaseUser != null){
+            fecthingProducts();
+        }
+
         return rootView;
     }
 

@@ -47,6 +47,25 @@ public class FirebaseRepo {
         return userModelMutableLiveData;
     }
 
+    public MutableLiveData<UserModel> getSellerData(String uid){
+        MutableLiveData<UserModel> userModelMutableLiveData = new MutableLiveData<>();
+        DatabaseReference dbRef = mFirebaseDatabase.getReference(Constants.Users_table)
+                .child(uid);
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userModelMutableLiveData.setValue(snapshot.getValue(UserModel.class));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d(TAG, "onCancelled: "+ error.getMessage());
+            }
+        });
+
+        return userModelMutableLiveData;
+    }
+
     public void logUserOut() {
         firebaseAuth.signOut();
     }
