@@ -34,8 +34,10 @@ import java.util.Objects;
 public class SignUpActivity extends AppCompatActivity {
 
     private TextView mToLoginText;
-    private TextInputEditText mUserNameInput, mEmailInput, mPhoneInput, mPasswordInput, mConfirmPasswordInput;
-    private TextInputLayout mUserNameInputLayout, mEmailInputLayout, mPhoneInputLayout, mPasswordInputLayout, mConfirmPasswordInputLayout;
+    private TextInputEditText mUserNameInput, mEmailInput, mPhoneInput, mPasswordInput,
+            mConfirmPasswordInput, mLocationInput;
+    private TextInputLayout mUserNameInputLayout, mEmailInputLayout, mPhoneInputLayout,
+            mPasswordInputLayout, mConfirmPasswordInputLayout, mLocationInputLayout;
     private Button mCreateAccountButton;
     private FirebaseAuth mAuth;
     private FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -64,6 +66,8 @@ public class SignUpActivity extends AppCompatActivity {
         mPhoneInputLayout = findViewById(R.id.phoneInputLayout);
         mPasswordInputLayout = findViewById(R.id.passwordInputLayout);
         mConfirmPasswordInputLayout = findViewById(R.id.confirmPasswordInputLayout);
+        mLocationInput = findViewById(R.id.locationInput);
+        mLocationInputLayout = findViewById(R.id.locationInputLayout);
         mCreateAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +90,7 @@ public class SignUpActivity extends AppCompatActivity {
         String confirmedPassword = mConfirmPasswordInput.getText().toString();
         String userName = mUserNameInput.getText().toString();
         String phoneNumber = mPhoneInput.getText().toString();
+        String location = mLocationInput.getText().toString();
         if(TextUtils.isEmpty(userName)){
             mUserNameInputLayout.setError("Fill in User Name");
         }else if(TextUtils.isEmpty(email)){
@@ -94,7 +99,9 @@ public class SignUpActivity extends AppCompatActivity {
             mEmailInputLayout.setError("Enter Valid Email");
         }else if(TextUtils.isEmpty(phoneNumber)){
             mPhoneInputLayout.setError("Fill in phone number");
-        }else if(TextUtils.isEmpty(password)){
+        }else if(TextUtils.isEmpty(location)){
+            mLocationInputLayout.setError("Location Field cannot be empty");
+        } else if(TextUtils.isEmpty(password)){
             mPasswordInputLayout.setError("Fill in password");
         }else if(TextUtils.isEmpty(confirmedPassword)){
             mConfirmPasswordInputLayout.setError("Fill in field");
@@ -110,6 +117,7 @@ public class SignUpActivity extends AppCompatActivity {
                             if(task.isSuccessful()){
                                 FirebaseUser firebaseUser = mAuth.getCurrentUser();
                                 UserModel userModel = new UserModel(firebaseUser.getUid(), firebaseUser.getEmail(), userName, phoneNumber);
+                                userModel.setLocation(location);
                                 saveUserToDb(userModel);
                                 progressBar.endLoading();
 

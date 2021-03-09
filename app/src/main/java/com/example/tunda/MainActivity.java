@@ -90,14 +90,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView userEmail = mHeaderLayout.findViewById(R.id.header_userEmail);
 
         userName.setText(userModel.getName());
-        userEmail.setText(userModel.getEmail());
+        userEmail.setText(userModel.getPhone());
 
-       /* RequestOptions requestOptions = new RequestOptions();
-        requestOptions.placeholder(R.drawable.ic_account);
-        requestOptions.error(R.drawable.ic_account);
-        Glide.with(this)
-                .setDefaultRequestOptions(requestOptions)
-                .load(userModel.getProfilePic()).into(userProfile);*/
         Picasso.get().load(userModel.getProfilePic()).placeholder(R.drawable.ic_account).into(userProfile);
 
     }

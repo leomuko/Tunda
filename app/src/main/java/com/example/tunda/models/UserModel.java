@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class UserModel implements Parcelable {
 
-    private String userID, email, name, phone, profilePic;
+    private String userID, email, name, phone, profilePic, location;
 
     public UserModel() {
     }
@@ -89,5 +89,13 @@ public class UserModel implements Parcelable {
 
     public void setProfilePic(String profilePic) {
         this.profilePic = profilePic;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

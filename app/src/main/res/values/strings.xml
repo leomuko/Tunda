@@ -17,7 +17,7 @@
     <string name="text_logout">Logout</string>
     <string name="item_name_text">Farming Item Name</string>
     <string name="user_email_com">user@email.com</string>
-    <string name="item_default_price_text">UGX 15,000,000</string>
+    <string name="item_default_price_text">UGX</string>
     <string name="lorem">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s
         standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</string>
     <string name="call_user_texte">CALL SELLER</string>

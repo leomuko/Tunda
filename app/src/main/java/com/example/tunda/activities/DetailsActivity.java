@@ -57,11 +57,13 @@ public class DetailsActivity extends AppCompatActivity {
     private void initialiseUserViews(UserModel userModel) {
         CircleImageView circleImageView = findViewById(R.id.seller_profile_image);
         TextView userNameTv = findViewById(R.id.detail_userName);
+        TextView locationTv = findViewById(R.id.detail_userLocation);
         Button button = findViewById(R.id.detail_userPhoneNumber);
 
         Picasso.get().load(userModel.getProfilePic())
                 .placeholder(R.drawable.ic_account_1).into(circleImageView);
         userNameTv.setText(userModel.getName());
+        locationTv.setText(userModel.getLocation());
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +78,7 @@ public class DetailsActivity extends AppCompatActivity {
         TextView productPrice = findViewById(R.id.productPage_price);
         TextView productDetails = findViewById(R.id.productPage_details);
 
-        productPrice.setText("UGX " +mCurrentProduct.getPdtPrice());
+        productPrice.setText(addCommasToNumericString(mCurrentProduct.getPdtPrice()));
         productDetails.setText(mCurrentProduct.getPdtDescription());
         Picasso.get().load(mCurrentProduct.getCoverPic())
                 .fit()
@@ -91,5 +93,17 @@ public class DetailsActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    public String addCommasToNumericString(String digits) {
+        String result = "";
+        for (int i=1; i <= digits.length(); ++i) {
+            char ch = digits.charAt(digits.length() - i);
+            if (i % 3 == 1 && i > 1) {
+                result = "," + result;
+            }
+            result = ch + result;
+        }
+
+        return result;
     }
 }

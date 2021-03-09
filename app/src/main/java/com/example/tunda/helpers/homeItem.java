@@ -30,12 +30,25 @@ public class homeItem extends com.xwray.groupie.Item {
         ImageView itemImage = viewHolder.itemView.findViewById(R.id.homeItem_itemImage);
 
         itemName.setText(mProductModel.getPdtName());
-        itemPrice.setText("UGX " + mProductModel.getPdtPrice());
+        itemPrice.setText( addCommasToNumericString( mProductModel.getPdtPrice()));
 
         Picasso.get().load(mProductModel.getCoverPic())
                 .fit()
                 .centerCrop()
                 .into(itemImage);
+    }
+
+    public String addCommasToNumericString(String digits) {
+        String result = "";
+        for (int i=1; i <= digits.length(); ++i) {
+            char ch = digits.charAt(digits.length() - i);
+            if (i % 3 == 1 && i > 1) {
+                result = "," + result;
+            }
+            result = ch + result;
+        }
+
+        return result;
     }
 
     @Override
