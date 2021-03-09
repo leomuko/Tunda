@@ -117,9 +117,9 @@ public class SellerFragment extends Fragment {
 
                 for (ProductModel p : productModels) {
                     allProductsList.clear();
-                    allProductsList.addAll(productModels);
 
                     if(p.getSellerID().equals(mFirebaseUser.getUid())){
+                        allProductsList.add(p);
                         mAdapter.add(new homeItem(p, mC));
                         mAdapter.notifyDataSetChanged();
                     }
