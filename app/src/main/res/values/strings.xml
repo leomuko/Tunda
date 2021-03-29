@@ -37,4 +37,12 @@
     <string name="product_cover_image">Add Product Cover Image</string>
     <string name="tap_here">Tap here</string>
     <string name="tap_image_to_product_images">Tap Image to Product Images</string>
+    <string name="hire_technician">Hire Technician</string>
+    <string name="enter_technician_name">Enter Technician Name</string>
+    <string name="technician_role_details">Technician Role Details</string>
+    <string name="technician_role">Enter Technician Role</string>
+    <string name="tunda_home">Tunda Home</string>
+    <string name="enter_technician_location">Enter Technician Location</string>
+    <string name="enter_technician_base_price">Enter Technician Base Price</string>
+    <string name="add_technician_profile_image">Add technician Profile Image</string>
 </resources>

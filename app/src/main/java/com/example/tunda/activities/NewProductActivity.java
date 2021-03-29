@@ -160,7 +160,7 @@ public class NewProductActivity extends AppCompatActivity implements ProductImag
                        @Override
                        public void onSuccess(Uri uri) {
                            mOthers = new ArrayList<>();
-                           saveOtherImages();
+                           //saveOtherImages();
 
                            saveProduct(uri.toString());
                        }
