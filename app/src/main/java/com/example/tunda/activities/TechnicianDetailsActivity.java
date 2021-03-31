@@ -13,9 +13,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tunda.R;
+import com.example.tunda.helpers.Constants;
 import com.example.tunda.models.ProductModel;
 import com.example.tunda.models.TechnicianModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -23,13 +30,16 @@ public class TechnicianDetailsActivity extends AppCompatActivity {
 
     ImageView mImageView;
     private TechnicianModel mCurrentProduct;
+    private FirebaseUser mFirebaseUser;
+    private FirebaseAuth firebaseAuth;
+    private Button deleteButton;
+    private FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_technician_details);
 
-        setContentView(R.layout.activity_details);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         Intent intent = getIntent();
@@ -37,8 +47,24 @@ public class TechnicianDetailsActivity extends AppCompatActivity {
         mImageView = findViewById(R.id.imageSlider);
 
         getSupportActionBar().setTitle(mCurrentProduct.getTechnicianName());
+        deleteButton = (Button) findViewById(R.id.deleteButton);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = firebaseAuth.getCurrentUser();
+
+        if (mFirebaseUser != null && Objects.equals(mFirebaseUser.getEmail(), "admin@tunda.com")) {
+            deleteButton.setVisibility(View.VISIBLE);
+        }
+
 
         initialiseViews();
+    }
+
+    private void deleteFromDb() {
+        DatabaseReference dbRef = mFirebaseDatabase.getReference(Constants.Technician_table).child(mCurrentProduct.getTcnId());
+        dbRef.removeValue();
+       startActivity(new Intent(this, TechnicianActivity.class));
+       finish();
     }
 
     private void initialiseViews() {
@@ -69,11 +95,19 @@ public class TechnicianDetailsActivity extends AppCompatActivity {
                 startActivity(callIntent);
             }
         });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteFromDb();
+            }
+        });
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == android.R.id.home) {
+            startActivity(new Intent(this, TechnicianActivity.class));
             finish();
             return true;
         }

@@ -57,7 +57,6 @@ public class TechnicianActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new GridLayoutManager(mC, 2));
 
         mAdapter = new GroupAdapter();
-        mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull Item item, @NonNull View view) {
@@ -91,16 +90,27 @@ public class TechnicianActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<TechnicianModel> technicianModels) {
                 allProductsList.clear();
-                for(TechnicianModel t : technicianModels){
+                allProductsList.addAll(technicianModels);
+                populateRecyclerView();
+                /*for(TechnicianModel t : technicianModels){
                     allProductsList.add(t);
                     mAdapter.add(new technicianItem(t, mC));
                     mAdapter.notifyDataSetChanged();
-                }
+                }*/
                 mProgressBar.setVisibility(View.GONE);
 
             }
         });
 
+    }
+
+    private void populateRecyclerView() {
+        mAdapter.clear();
+        for (TechnicianModel t : allProductsList) {
+            mAdapter.add(new technicianItem(t, mC));
+            mAdapter.notifyDataSetChanged();
+        }
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override

@@ -122,9 +122,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_home:
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
-                finish();
+                break;
             case R.id.nav_hire:
-                Intent intent1 = new Intent(MainActivity.this, TechnicianActivity.class);
+                Intent intent1 = new Intent(this, TechnicianActivity.class);
                 startActivity(intent1);
                 break;
             case R.id.nav_edit_profile:
