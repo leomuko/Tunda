@@ -16,10 +16,18 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.tunda.MainActivity;
 import com.example.tunda.R;
+import com.example.tunda.helpers.Constants;
 import com.example.tunda.models.ProductModel;
 import com.example.tunda.models.UserModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -27,6 +35,10 @@ public class DetailsActivity extends AppCompatActivity {
 
     ImageView mImageView;
     private ProductModel mCurrentProduct;
+    private FirebaseUser mFirebaseUser;
+    private FirebaseAuth firebaseAuth;
+    private Button deleteButton;
+    private FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +49,32 @@ public class DetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         mCurrentProduct = intent.getParcelableExtra("product");
         mImageView = findViewById(R.id.imageSlider);
+        deleteButton = (Button) findViewById(R.id.deleteButton);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = firebaseAuth.getCurrentUser();
+
+        if (mFirebaseUser != null && Objects.equals(mFirebaseUser.getEmail(), "admin@tunda.com")) {
+            deleteButton.setVisibility(View.VISIBLE);
+        }
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteProductFromDb();
+            }
+        });
 
 
         initialiseViews();
         initialiseViewModel();
+    }
+
+    private void deleteProductFromDb() {
+        DatabaseReference dbRef = mFirebaseDatabase.getReference(Constants.Products_table).child(mCurrentProduct.getProductID());
+        dbRef.removeValue();
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     private void initialiseViewModel() {

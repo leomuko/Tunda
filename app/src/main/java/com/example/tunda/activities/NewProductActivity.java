@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -105,7 +107,7 @@ public class NewProductActivity extends AppCompatActivity implements ProductImag
         mAddOtherImages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectImage();
+                chooseCoverImage();
             }
         });
 
@@ -120,6 +122,29 @@ public class NewProductActivity extends AppCompatActivity implements ProductImag
 
 
 
+    }
+
+    private void chooseCoverImage() {
+        final CharSequence[] options = { "Choose from Gallery","Cancel" };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose Product Cover Image");
+
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+
+                if (options[item].equals("Choose from Gallery")) {
+                    Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(pickPhoto , CHOOSE_COVER_CODE);
+
+                } else if (options[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
     }
 
     private void submit() {
@@ -280,7 +305,7 @@ public class NewProductActivity extends AppCompatActivity implements ProductImag
     }
 
     private void selectImage() {
-        final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
+        final CharSequence[] options = { "Choose from Gallery","Cancel" };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choose Product Image");
@@ -289,12 +314,12 @@ public class NewProductActivity extends AppCompatActivity implements ProductImag
 
             @Override
             public void onClick(DialogInterface dialog, int item) {
-
+/*
                 if (options[item].equals("Take Photo")) {
                     Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(takePicture, TAKE_PHOTO_CODE);
 
-                } else if (options[item].equals("Choose from Gallery")) {
+                } else*/ if (options[item].equals("Choose from Gallery")) {
                     Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(pickPhoto , CHOOSE_PHOTO_CODE);
 
@@ -391,8 +416,9 @@ public class NewProductActivity extends AppCompatActivity implements ProductImag
                 case TAKE_COVER_CODE:
                     if (resultCode == RESULT_OK && data != null) {
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
-                        mUri =  data.getData();
+                      //  mUri =  data.getData();
                         if (selectedImage != null) {
+                            mUri = getImageUri(getApplicationContext(), selectedImage);
                             int inWidth = selectedImage.getWidth();
                             int inHeight = selectedImage.getHeight();
                             if (inWidth > inHeight) {
@@ -417,6 +443,27 @@ public class NewProductActivity extends AppCompatActivity implements ProductImag
 
         }
 
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    public String getRealPathFromURI(Uri uri) {
+        String path = "";
+        if (getContentResolver() != null) {
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            if (cursor != null) {
+                cursor.moveToFirst();
+                int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                path = cursor.getString(idx);
+                cursor.close();
+            }
+        }
+        return path;
     }
 
     private void initRecyclerView() {

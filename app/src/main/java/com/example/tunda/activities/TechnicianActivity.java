@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.example.tunda.MainActivity;
 import com.example.tunda.R;
 import com.example.tunda.helpers.technicianItem;
 import com.example.tunda.models.TechnicianModel;
@@ -117,7 +118,8 @@ public class TechnicianActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -114,9 +114,9 @@ public class SellerFragment extends Fragment {
         mSellerViewModel.productHashMap.observe(getViewLifecycleOwner(), new Observer<List<ProductModel>>() {
             @Override
             public void onChanged(List<ProductModel> productModels) {
-
+                allProductsList.clear();
                 for (ProductModel p : productModels) {
-                    allProductsList.clear();
+
 
                     if(p.getSellerID().equals(mFirebaseUser.getUid())){
                         allProductsList.add(p);
