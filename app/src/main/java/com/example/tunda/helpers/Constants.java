@@ -7,4 +7,5 @@ public class Constants {
     public final static  String Other_images = "OtherImages";
     public final static String Other_image_table = "ProductImages";
     public final static String Technician_table = "Technicians";
+    public final static String Advisory_table = "Advisories";
 }

@@ -9,10 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.tunda.MainActivity;
 import com.example.tunda.R;
@@ -85,44 +88,48 @@ public class TechnicianActivity extends AppCompatActivity {
     }
 
     private void fecthingProducts() {
-        mRecyclerView.setAdapter(mAdapter);
-        mTechnicianViewModel.loadingProducts();
-        mTechnicianViewModel.mProductLiveData.observe(TechnicianActivity.this, new Observer<List<TechnicianModel>>() {
-            @Override
-            public void onChanged(List<TechnicianModel> technicianModels) {
-                allProductsList.clear();
-                allProductsList.addAll(technicianModels);
-                populateRecyclerView();
-                /*for(TechnicianModel t : technicianModels){
-                    allProductsList.add(t);
-                    mAdapter.add(new technicianItem(t, mC));
-                    mAdapter.notifyDataSetChanged();
-                }*/
+            ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+            boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+            if (!isConnected) {
+                Toast.makeText(getApplicationContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
                 mProgressBar.setVisibility(View.GONE);
+            } else {
+                mRecyclerView.setAdapter(mAdapter);
+                mTechnicianViewModel.loadingProducts();
+                mTechnicianViewModel.mProductLiveData.observe(TechnicianActivity.this, new Observer<List<TechnicianModel>>() {
+                    @Override
+                    public void onChanged(List<TechnicianModel> technicianModels) {
+                        allProductsList.clear();
+                        allProductsList.addAll(technicianModels);
+                        populateRecyclerView();
+                        mProgressBar.setVisibility(View.GONE);
 
+                    }
+                });
             }
-        });
 
-    }
-
-    private void populateRecyclerView() {
-        mAdapter.clear();
-        for (TechnicianModel t : allProductsList) {
-            mAdapter.add(new technicianItem(t, mC));
-            mAdapter.notifyDataSetChanged();
         }
-        mRecyclerView.setAdapter(mAdapter);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                startActivity(new Intent(this, MainActivity.class));
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        private void populateRecyclerView () {
+            mAdapter.clear();
+            for (TechnicianModel t : allProductsList) {
+                mAdapter.add(new technicianItem(t, mC));
+                mAdapter.notifyDataSetChanged();
+            }
+            mRecyclerView.setAdapter(mAdapter);
+        }
+
+        @Override
+        public boolean onOptionsItemSelected (@NonNull MenuItem item){
+            switch (item.getItemId()) {
+                case android.R.id.home:
+                    startActivity(new Intent(this, MainActivity.class));
+                    finish();
+                    return true;
+                default:
+                    return super.onOptionsItemSelected(item);
+            }
         }
     }
-}

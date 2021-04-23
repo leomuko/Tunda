@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.tunda.models.AdvisoryModel;
 import com.example.tunda.models.ProductModel;
 import com.example.tunda.models.TechnicianModel;
 import com.example.tunda.models.UserModel;
@@ -69,6 +70,29 @@ public class FirebaseRepo {
 
     public void logUserOut() {
         firebaseAuth.signOut();
+    }
+
+    public MutableLiveData< List<AdvisoryModel>> loadingAdvisories(){
+        List<AdvisoryModel> allProducstList = new ArrayList<>();
+        MutableLiveData<List<AdvisoryModel>> mutableLiveData = new MutableLiveData<>();
+        DatabaseReference allProductsDbref = mFirebaseDatabase.getReference(Constants.Advisory_table);
+
+        allProductsDbref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot s: snapshot.getChildren()){
+                    allProducstList.add(s.getValue(AdvisoryModel.class));
+                }
+                mutableLiveData.postValue(allProducstList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        return mutableLiveData;
     }
 
     public MutableLiveData<List<TechnicianModel>> loadingTechnicians(){

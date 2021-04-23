@@ -1,6 +1,9 @@
 package com.example.tunda.fragments.Home;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -52,7 +55,6 @@ public class HomeFragment extends Fragment {
         mProgressBar = rootView.findViewById(R.id.progressBar);
 
 
-
         mHomeRecyclerView.setLayoutManager(new GridLayoutManager(mC, 2));
 
         mAdapter = new GroupAdapter();
@@ -62,7 +64,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(@NonNull Item item, @NonNull View view) {
                 Intent intent = new Intent(mC, DetailsActivity.class);
-                intent.putExtra("product",allProductsList.get(mAdapter.getAdapterPosition(item)) );
+                intent.putExtra("product", allProductsList.get(mAdapter.getAdapterPosition(item)));
                 startActivity(intent);
             }
         });
@@ -70,21 +72,31 @@ public class HomeFragment extends Fragment {
     }
 
     private void fecthingProducts() {
-        mHomeRecyclerView.setAdapter(mAdapter);
-        mHomeFragmentViewModel.loadingProducts();
-        mHomeFragmentViewModel.mProductLiveData.observe(getViewLifecycleOwner(), new Observer<List<ProductModel>>() {
-            @Override
-            public void onChanged(List<ProductModel> productModels) {
-                allProductsList.clear();
-                allProductsList.addAll(productModels);
+        ConnectivityManager cm = (ConnectivityManager) mC.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-                for(ProductModel p : productModels){
-                    mAdapter.add(new homeItem(p, mC));
-                    mAdapter.notifyDataSetChanged();
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        if (!isConnected) {
+            Toast.makeText(mC, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+            mProgressBar.setVisibility(View.GONE);
+        } else {
+            mHomeRecyclerView.setAdapter(mAdapter);
+            mHomeFragmentViewModel.loadingProducts();
+            mHomeFragmentViewModel.mProductLiveData.observe(getViewLifecycleOwner(), new Observer<List<ProductModel>>() {
+                @Override
+                public void onChanged(List<ProductModel> productModels) {
+                    allProductsList.clear();
+                    allProductsList.addAll(productModels);
+
+                    for (ProductModel p : productModels) {
+                        mAdapter.add(new homeItem(p, mC));
+                        mAdapter.notifyDataSetChanged();
+                    }
+                    mProgressBar.setVisibility(View.GONE);
                 }
-               mProgressBar.setVisibility(View.GONE);
-            }
-        });
+            });
+        }
     }
 
     private void initHomeViewModel() {

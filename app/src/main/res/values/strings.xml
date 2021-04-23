@@ -45,4 +45,5 @@
     <string name="enter_technician_location">Enter Technician Location</string>
     <string name="enter_technician_base_price">Enter Technician Base Price</string>
     <string name="add_technician_profile_image">Add technician Profile Image</string>
+    <string name="advisory_title">Advisory Title</string>
 </resources>
