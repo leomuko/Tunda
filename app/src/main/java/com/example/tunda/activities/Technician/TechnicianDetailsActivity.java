@@ -1,4 +1,4 @@
-package com.example.tunda.activities;
+package com.example.tunda.activities.Technician;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.example.tunda.R;
 import com.example.tunda.helpers.Constants;
-import com.example.tunda.models.ProductModel;
 import com.example.tunda.models.TechnicianModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

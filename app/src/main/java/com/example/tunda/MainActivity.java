@@ -23,7 +23,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 
-import com.example.tunda.activities.TechnicianActivity;
+import com.example.tunda.activities.Technician.TechnicianActivity;
 import com.example.tunda.fragments.EditProfile.EditProfileFragment;
 import com.example.tunda.fragments.helpAndFeedback.HelpAndFeedbackFragment;
 import com.example.tunda.fragments.Home.HomeFragment;
@@ -126,6 +126,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_hire:
                 Intent intent1 = new Intent(this, TechnicianActivity.class);
                 startActivity(intent1);
+                break;
+            case R.id.nav_advisory:
+                Toast.makeText(this, "For technician", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_edit_profile:
                 mNavFragmentSelected = new EditProfileFragment();

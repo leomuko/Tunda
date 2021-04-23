@@ -1,4 +1,4 @@
-package com.example.tunda.activities;
+package com.example.tunda.activities.Technician;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

@@ -130,7 +130,7 @@ public class NewProductActivity extends AppCompatActivity implements ProductImag
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choose Product Cover Image");
 
-        builder.setItems(options, new DialogInterface.OnClickListener() {
+        builder.setItems(new String[]{"Choose from Gallery", "Cancel"}, new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int item) {
@@ -278,7 +278,7 @@ public class NewProductActivity extends AppCompatActivity implements ProductImag
 
 
     private void selectCoverImage() {
-        final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
+        final CharSequence[] options = { "Choose from Gallery","Cancel" };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choose Cover Image");

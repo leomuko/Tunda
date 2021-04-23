@@ -12,9 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.TechnicianActivity"></activity>
-        <activity android:name=".activities.TechnicianDetailsActivity" />
-        <activity android:name=".activities.NewTechnicianActivity" />
+        <activity android:name=".activities.Advisory.AdvisoryActivity"></activity>
+        <activity android:name=".activities.Technician.TechnicianActivity" />
+        <activity android:name=".activities.Technician.TechnicianDetailsActivity" />
+        <activity android:name=".activities.Technician.NewTechnicianActivity" />
         <activity android:name=".activities.NewProductActivity" />
         <activity
             android:name=".activities.SplashActivity"

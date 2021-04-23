@@ -54,6 +54,9 @@ public class DetailsActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = firebaseAuth.getCurrentUser();
 
+        if (mFirebaseUser != null && mCurrentProduct.getSellerID().equals(mFirebaseUser.getUid())) {
+            deleteButton.setVisibility(View.VISIBLE);
+        }
         if (mFirebaseUser != null && Objects.equals(mFirebaseUser.getEmail(), "admin@tunda.com")) {
             deleteButton.setVisibility(View.VISIBLE);
         }

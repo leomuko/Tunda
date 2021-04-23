@@ -11,6 +11,9 @@
            <item android:id="@+id/nav_hire"
                android:title="@string/hire_technician"
                android:icon="@drawable/ic_hire"/>
+           <item android:id="@+id/nav_advisory"
+               android:title="Advisory"
+               android:icon="@drawable/ic_advisory"/>
        </menu>
 
    </item>

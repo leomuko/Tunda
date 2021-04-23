@@ -1,4 +1,4 @@
-package com.example.tunda.activities;
+package com.example.tunda.activities.Technician;
 
 import android.app.Application;
 

@@ -1,4 +1,4 @@
-package com.example.tunda.activities;
+package com.example.tunda.activities.Technician;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.tunda.MainActivity;
 import com.example.tunda.R;
 import com.example.tunda.helpers.Constants;
 import com.example.tunda.helpers.Loading;
