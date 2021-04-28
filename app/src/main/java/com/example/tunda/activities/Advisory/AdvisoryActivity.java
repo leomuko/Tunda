@@ -1,13 +1,18 @@
 package com.example.tunda.activities.Advisory;
 
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -15,18 +20,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tunda.MainActivity;
 import com.example.tunda.R;
-import com.example.tunda.activities.Technician.NewTechnicianActivity;
-import com.example.tunda.activities.Technician.TechnicianActivity;
-import com.example.tunda.activities.Technician.TechnicianDetailsActivity;
 import com.example.tunda.helpers.AdvisoryItem;
 import com.example.tunda.models.AdvisoryModel;
-import com.example.tunda.models.TechnicianModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -49,6 +49,8 @@ public class AdvisoryActivity extends AppCompatActivity {
     private ProgressBar mProgressBar;
     private AdvisoryViewModel mAdvisoryViewModel;
     private List<AdvisoryModel> allAdvisories = new ArrayList<>();
+    Button filterButton;
+    String cropToFilter;
 
 
     @Override
@@ -67,6 +69,14 @@ public class AdvisoryActivity extends AppCompatActivity {
         mProgressBar = findViewById(R.id.progressBar);
         mRecyclerView = findViewById(R.id.advisory_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mC));
+        filterButton = findViewById(R.id.filterButton);
+
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFilterDialog();
+            }
+        });
 
         if (mFirebaseUser != null && Objects.equals(mFirebaseUser.getEmail(), "admin@tunda.com")) {
             fab.setVisibility(View.VISIBLE);
@@ -93,6 +103,69 @@ public class AdvisoryActivity extends AppCompatActivity {
         mAdvisoryViewModel = new ViewModelProvider(this).get(AdvisoryViewModel.class);
 
         fetchingAdvisories();
+    }
+
+    private void openFilterDialog() {
+        Dialog dialog;
+        String[] cropList = {"None","Beans","Maize", "Peas"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select Crop To Filter");
+        builder.setSingleChoiceItems(cropList, 0,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).setPositiveButton("Done!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ListView lw = ((AlertDialog) dialog).getListView();
+                Object checkedItem = lw.getAdapter().getItem(lw.getCheckedItemPosition());
+                cropToFilter = String.valueOf(checkedItem);
+                if(String.valueOf(checkedItem).equals("None")){
+                    fetchingAdvisories();
+                }else{
+                    doFilter(String.valueOf(checkedItem));
+                }
+
+
+            }
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        dialog = builder.create();
+        dialog.show();
+    }
+
+    private void doFilter(String cropType) {
+        ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        if(!isConnected) {
+            Toast.makeText(getApplicationContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
+            mProgressBar.setVisibility(View.GONE);
+        }else {
+            mRecyclerView.setAdapter(mAdapter);
+            mAdvisoryViewModel.loadingAdvisories();
+            mAdvisoryViewModel.mProductLiveData.observe(AdvisoryActivity.this, new Observer<List<AdvisoryModel>>() {
+                @Override
+                public void onChanged(List<AdvisoryModel> advisoryModels) {
+                    allAdvisories.clear();
+                    for(AdvisoryModel a : advisoryModels){
+                        if(a.getAdvisoryCropType().equals(cropType)){
+                            allAdvisories.add(a);
+                        }
+                    }
+                    populateRecyclerView();
+                    mProgressBar.setVisibility(View.GONE);
+                }
+            });
+        }
     }
 
     private void fetchingAdvisories() {

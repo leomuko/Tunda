@@ -65,6 +65,29 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Choose Crop Type"
+                    android:textColor="#000000"
+                    android:textSize="18dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:id="@+id/advisoryCropType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edit_text_bg"
+                        android:textColor="#000000"
+                        android:inputType="textMultiLine"
+                        android:text="Tap to choose Crop"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
             <Button
                 android:id="@+id/saveAdvisoryButton"

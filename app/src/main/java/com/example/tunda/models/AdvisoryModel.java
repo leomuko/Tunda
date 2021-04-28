@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class AdvisoryModel implements Parcelable{
 
-    String advisoryId, advisoryTitle, advisoryDetails;
+    String advisoryId, advisoryTitle, advisoryDetails, advisoryCropType;
 
     public AdvisoryModel() {
     }
@@ -14,6 +14,14 @@ public class AdvisoryModel implements Parcelable{
         this.advisoryId = advisoryId;
         this.advisoryTitle = advisoryTitle;
         this.advisoryDetails = advisoryDetails;
+    }
+
+    public String getAdvisoryCropType() {
+        return advisoryCropType;
+    }
+
+    public void setAdvisoryCropType(String advisoryCropType) {
+        this.advisoryCropType = advisoryCropType;
     }
 
     protected AdvisoryModel(Parcel in) {
