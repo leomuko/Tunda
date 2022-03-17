@@ -90,7 +90,7 @@ public class TechnicianDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                callIntent.setData(Uri.parse("tel:+256"+ mCurrentProduct.getTcnContact()));
+                callIntent.setData(Uri.parse("tel:+256"+ mCurrentProduct.getTcnContact().substring(1)));
                 startActivity(callIntent);
             }
         });

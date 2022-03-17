@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tunda</string>
+    <string name="app_name">PHH-FRN</string>
     <string name="hint_email_input">Email</string>
     <string name="hint_password_input">Password</string>
     <string name="label_login_activity">Login</string>
@@ -41,7 +41,7 @@
     <string name="enter_technician_name">Enter Technician Name</string>
     <string name="technician_role_details">Technician Role Details</string>
     <string name="technician_role">Enter Technician Role</string>
-    <string name="tunda_home">Tunda Home</string>
+    <string name="tunda_home">PHH-FRN Home</string>
     <string name="enter_technician_location">Enter Technician Location</string>
     <string name="enter_technician_base_price">Enter Technician Base Price</string>
     <string name="add_technician_profile_image">Add technician Profile Image</string>

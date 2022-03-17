@@ -105,7 +105,7 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                callIntent.setData(Uri.parse("tel:+256"+ userModel.getPhone()));
+                callIntent.setData(Uri.parse("tel:+256"+ userModel.getPhone().substring(1)));
                 startActivity(callIntent);
             }
         });
