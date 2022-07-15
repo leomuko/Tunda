@@ -24,7 +24,8 @@
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
             android:id="@+id/technicianItem_role"
@@ -32,11 +33,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="Veterinary Doctor"
-            android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textColor="#808080"
+            android:textSize="16.7sp"
             android:textStyle="bold"
+            android:maxLines="1"
+            android:layout_marginStart="3dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/technicianItem_Name" />
+            app:layout_constraintTop_toBottomOf="@+id/technicianItem_Name"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <!-- <ImageView
             android:id="@+id/homeItem_itemImage"
